@@ -18,6 +18,9 @@ public abstract class BankAccount
     abstract boolean withdraw(double amount);
 
     public void deposit(double amount) {
+        if (amount < 0) {
+            return;
+        }
         balance += amount;
     }
 

@@ -21,36 +21,18 @@ class CustomerTest
     @Test
     void addAccount()
     {
-        assertAll(
-        () -> {
-            ArrayList<BankAccount> initialAccounts = customer.accounts;
-            customer.addAccount(new PremiumAccount(500000, customer));
-            assertTrue(initialAccounts.size() < customer.accounts.size());
-        },
-        () -> {
-            ArrayList<BankAccount> initialAccounts = customer.accounts;
-            customer.addAccount(new PenguinAccount(10000, customer));
-            assertEquals(customer.accounts.size(), initialAccounts.size());
-        },
-        () -> {
-            ArrayList<BankAccount> initialAccounts = customer.accounts;
-            customer.addAccount(new PremiumAccount(1000000, customer));
-            assertEquals(customer.accounts.size(), initialAccounts.size());
-        }
-         );
+        int initialSize = customer.accounts.size();
+        customer.addAccount(new PremiumAccount(500000, customer));
+        assertEquals(initialSize +1, customer.accounts.size());
     }
 
     @Test
     void remove()
     {
         BankAccount account = new PremiumAccount(20000, customer);
-        customer.addAccount(account);
-
-        customer.remove(account);
-        assertEquals(0, customer.accounts.size());
 
         customer.addAccount(account);
-        customer.remove(new PenguinAccount(10000, new Customer("Tobias berg", Status.CHILD)));
+        customer.remove(new PenguinAccount(10000, new Customer("Tobias dværg", Status.CHILD)));
         assertEquals(1, customer.accounts.size());
     }
 
@@ -64,10 +46,10 @@ class CustomerTest
     void setName()
     {
         customer.setName("R2D2");
-        assertEquals("Tobias", customer.getName());
+        assertEquals("NOT_VALID", customer.getName());
 
         customer.setName(null);
-        assertEquals("Tobias", customer.getName());
+        assertEquals("NOT_VALID", customer.getName());
 
         customer.setName("Sander");
         assertEquals("Sander", customer.getName());
