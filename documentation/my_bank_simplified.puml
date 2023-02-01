@@ -1,0 +1,52 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class BankAccount{
+    # double balance
+    # Customer owner
+
+    + abstract void setOwner(Customer owner)
+    + abstract boolean withdraw(double amount)
+    + int getId()
+    + void deposit(double amount)
+    + double getBalance()
+    + Customer getOwner()
+}
+class PenguinAccount
+class SalaryAccount{
+    - double creditlimit
+    + setCreditlimit(double amount)
+    + getCreditlimit()
+}
+class PremiumAccount
+
+class Customer{
+    - String name
+    - Status status
+    - int id
+    - ArrayList<BankAccount> accounts
+   + void addAccount(BankAccount account)
+   + void remove(BankAccount account)
+   + void setName(String name)
+   + void setStatus(Status status)
+   + String getName()
+   + Status getStatus()
+   + int getId()
+}
+
+enum Status{
+    CHILD
+    ADULT
+    VIP
+}
+
+BankAccount <|-- PenguinAccount
+BankAccount <|-- SalaryAccount
+BankAccount <|-- PremiumAccount
+
+Customer "1"*--* "many"BankAccount
+Customer  *-- "1" Status
+
+
+
+@enduml
